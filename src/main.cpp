@@ -92,7 +92,7 @@ struct Polar {
 // map big, linear ultrasonic distances to displayable distances
 inline int scale(const float) forceinline;  // inline to do simple calculations in-place where possible
 inline int scale(const float reading) {
-    return 8 * log(reading + 1) / log(settings::ultrasonic::maxDistance);  // logarithmic
+    return 8 * log(reading + 1) / log(settings::ultrasonic::maxDistance + 1);  // logarithmic
     // return 8 * reading / maxDistance; // linear
 }
 
