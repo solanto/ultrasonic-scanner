@@ -93,7 +93,7 @@ struct Polar {
 inline int scale(const float) forceinline;  // inline to do simple calculations in-place where possible
 
 inline int scale(const float reading) { // logarithmic
-    static float scalar = 8.0 / log(settings::ultrasonic::maxDistance + 1); // calculated once
+    static const float scalar = 8.0 / log(settings::ultrasonic::maxDistance + 1); // calculated once
     return scalar * log(reading + 1);
 }
 
