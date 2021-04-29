@@ -91,10 +91,16 @@ struct Polar {
 
 // map big, linear ultrasonic distances to displayable distances
 inline int scale(const float) forceinline;  // inline to do simple calculations in-place where possible
-inline int scale(const float reading) {
-    return 8 * log(reading + 1) / log(settings::ultrasonic::maxDistance + 1);  // logarithmic
-    // return 8 * reading / maxDistance; // linear
+
+inline int scale(const float reading) { // logarithmic
+    static float scalar = 8.0 / log(settings::ultrasonic::maxDistance + 1); // calculated once
+    return scalar * log(reading + 1);
 }
+
+// inline int scale(const float reading) { // linear
+//     static constexpr float scalar =  8.0 / settings::ultrasonic::maxDistance; // calculated once, at compile time
+//     return scalar * reading;
+// }
 
 // meaure how far the sensor can see at the specified angle (degrees)
 Polar scanTo(const int angle) {
